@@ -1,0 +1,2 @@
+NAMESPACE=openshift
+IMAGE_VERSION=5.0.0

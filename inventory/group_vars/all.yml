@@ -1,0 +1,72 @@
+---
+openshift_cluster_content:
+- object: projectrequest
+  content:
+  - name: ec
+    file: "{{ inventory_dir }}/../openshift/ec-project-request.yml"
+    file_action: create
+    tags:
+    - projectrequests
+    - ec
+- object: secrets
+  content:
+  - name: ec-crt
+    file: "{{ inventory_dir }}/../openshift/secrets/ec-crt.yml"
+    file_action: apply
+    namespace: ec
+    tags:
+    - secret
+    - ec-crt
+    - ec
+  - name: ec-db
+    template: "{{ inventory_dir }}/../openshift/secrets/ec-db.yml"
+    params: "{{ inventory_dir }}/../params/ec-db"
+    namespace: ec
+    tags:
+    - secret
+    - ec-db
+    - ec
+- object: ec
+  content:
+  - name: elasticsearch
+    template: "{{ inventory_dir }}/../openshift/templates/elasticsearch.yml"
+    params: "{{ inventory_dir }}/../params/elasticsearch"
+    namespace: ec
+    tags:
+    - ec  
+    - elasticsearch
+  - name: mariadb
+    template: "{{ inventory_dir }}/../openshift/templates/mariadb.yml"
+    params: "{{ inventory_dir }}/../params/mariadb"
+    namespace: ec
+    tags:
+    - ec  
+    - mariadb
+  - name: ec-broker
+    template: "{{ inventory_dir }}/../openshift/templates/broker.yml"
+    params: "{{ inventory_dir }}/../params/ec-broker"
+    namespace: ec
+    tags:
+    - ec  
+    - ec-broker
+  - name: ec-api
+    template: "{{ inventory_dir }}/../openshift/templates/api.yml"
+    params: "{{ inventory_dir }}/../params/ec-api"
+    namespace: ec
+    tags:
+    - ec  
+    - ec-api
+  - name: ec-console
+    template: "{{ inventory_dir }}/../openshift/templates/console.yml"
+    params: "{{ inventory_dir }}/../params/ec-console"
+    namespace: ec
+    tags:
+    - ec  
+    - ec-console
+  - name: ec-vpn
+    template: "{{ inventory_dir }}/../openshift/templates/vpn.yml"
+    params: "{{ inventory_dir }}/../params/ec-vpn"
+    namespace: ec
+    tags:
+    - ec  
+    - ec-vpn
